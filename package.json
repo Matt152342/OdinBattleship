@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
     "webpack": "^5.108.4",
     "webpack-cli": "^7.2.1",
     "webpack-dev-server": "^6.0.0"
+  },
+  "dependencies": {
+    "jest": "^30.4.2"
   }
 }
