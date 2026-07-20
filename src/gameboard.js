@@ -1,7 +1,7 @@
 class GameBoard {
     constructor(length, numberOfShips) {
         this.length = length;
-        this.gameboard = Array.from({ length: this.length }, () => Array(10).fill());
+        this.gameboard = Array.from({ length: this.length }, () => Array(this.length).fill());
         this.missedAttacks = 0;
 
         this.numberOfShips = numberOfShips;
@@ -19,6 +19,9 @@ class GameBoard {
         }
 
         for (let i = y; i < ship.length + y; i++) {
+            if (this.gameboard[x][i] !== undefined) {
+                throw new Error("Cannot place ship on top of another ship!");
+            }
             this.gameboard[x][i] = ship;
         }
     }
@@ -26,6 +29,10 @@ class GameBoard {
     receiveAttack (coordinate) {
         const [x, y] = coordinate;
         const cell = this.gameboard[x][y]; // get ship object
+
+        if (cell === "X" || cell === "O") {
+            throw new Error("Already attacked this coordinate.");
+        }
         
         if (typeof cell === 'object' && cell !== null) {
             cell.hit();
@@ -43,3 +50,5 @@ class GameBoard {
         }
     }
 }
+
+export { GameBoard };

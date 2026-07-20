@@ -3,3 +3,5 @@ class Player {
         this.playerBoard = gameboard;
     }
 }
+
+export { Player };
