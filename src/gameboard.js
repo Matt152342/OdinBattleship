@@ -1,7 +1,11 @@
 class GameBoard {
-    constructor(length) {
+    constructor(length, numberOfShips) {
         this.length = length;
         this.gameboard = Array.from({ length: this.length }, () => Array(10).fill());
+        this.missedAttacks = 0;
+
+        this.numberOfShips = numberOfShips;
+        this.shipsSunk = 0;
     }
 
     placeShip (startCoordinate, ship) { // startCoord and endCoord is going to be formatted as [x, y]
@@ -15,11 +19,27 @@ class GameBoard {
         }
 
         for (let i = y; i < ship.length + y; i++) {
-            this.gameboard[x][i] = "SHIP";
+            this.gameboard[x][i] = ship;
         }
     }
 
     receiveAttack (coordinate) {
-        gameboard[coordinate[0]][coordinate[1]] = "X";
+        const [x, y] = coordinate;
+        const cell = this.gameboard[x][y]; // get ship object
+        
+        if (typeof cell === 'object' && cell !== null) {
+            cell.hit();
+            this.gameboard[x][y] = "X";
+            console.log("You hit a ship.");
+
+            if (cell.isSunk()) {
+                this.shipsSunk++;
+                console.log(`Ship sunk. Total sunk is: ${this.shipsSunk}`);
+            }
+        } else { // Check if miss
+            this.missedAttacks++;
+            this.gameboard[x][y] = "O";
+            console.log("Miss!");
+        }
     }
 }
