@@ -6,17 +6,13 @@ html, body {
     padding: 0;
 }
 
-.hidden {
-    display: none;
-}
-
 .gameboard {
     margin: 0;
     padding: 0;
 
     display: grid;
-    grid-template-columns: repeat(10, 40px);
-    grid-template-rows: repeat(10, 40px);
+    grid-template-columns: repeat(10, 35px);
+    grid-template-rows: repeat(10, 35px);
     gap: 1px;
     width: fit-content;
 
@@ -34,4 +30,8 @@ html, body {
     height: 100%;
 
     outline: 1px solid black;
+}
+
+.hidden {
+    display: none;
 }

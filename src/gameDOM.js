@@ -21,6 +21,7 @@ const drawBoard = (gameMenu) => {
     }
 
     gameMenu.appendChild(gameboard);
+    return gameboard;
 }
 
 export { drawBoard };

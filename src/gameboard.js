@@ -1,10 +1,10 @@
 class GameBoard {
-    constructor(length, numberOfShips) {
-        this.length = length;
+    constructor() {
+        this.length = 10;
         this.gameboard = Array.from({ length: this.length }, () => Array(this.length).fill());
         this.missedAttacks = 0;
 
-        this.numberOfShips = numberOfShips;
+        this.numberOfShips = 5;
         this.shipsSunk = 0;
     }
 
