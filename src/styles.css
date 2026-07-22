@@ -6,6 +6,18 @@ html, body {
     padding: 0;
 }
 
+#gameMenu {
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
 .gameboard {
     margin: 0;
     padding: 0;
@@ -16,9 +28,9 @@ html, body {
     gap: 1px;
     width: fit-content;
 
-    border: 1px solid black;
+    /* border: 1px solid black;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 .cell {

@@ -1,14 +1,23 @@
 import "./styles.css";
-import { drawBoard } from "./gameDOM.js";
+import { Player } from './Player.js';
+import { GameBoard } from './GameBoard.js';
+import { displayData, drawBoard } from "./gameDOM.js";
 
 const startMenu = document.getElementById('startMenu');
 const gameMenu = document.getElementById('gameMenu');
 
+// Will be used for mode selection
 let onePlayerMode = false;
 let twoPlayerMode = false;
 
-let playerBoard = null;
-let enemyBoard = null;
+// Set up playerOne and playerTwo 
+const playerOne = new Player();
+playerOne.playerBoard = new GameBoard();
+const playerTwo = new Player();
+playerTwo.playerBoard = new GameBoard();
+
+const playerOneBlock = document.querySelector('.playerOneBlock');
+const playerTwoBlock = document.querySelector('.playerTwoBlock');
 
 const startBtns = document.querySelectorAll('.startBtn');
 startBtns.forEach((button) => {
@@ -16,17 +25,15 @@ startBtns.forEach((button) => {
         startMenu.classList.add('hidden');
         gameMenu.classList.remove('hidden');
 
-        playerBoard = drawBoard(gameMenu);
-        enemyBoard = drawBoard(gameMenu);
+        drawBoard(playerOneBlock, playerOne.playerBoard);
+        displayData(playerOne, playerOneBlock);
+        drawBoard(playerTwoBlock, playerTwo.playerBoard);
+        displayData(playerTwo, playerTwoBlock);
 
         if (button.classList.contains('onePlayerBtn')) {
             onePlayerMode = true;
-            playerBoard.classList.add('playerOne');
-            enemyBoard.classList.add('computer');
         } else if (button.classList.contains('twoPlayerBtn')) {
             twoPlayerMode = true;
-            playerBoard.classList.add('playerOne');
-            enemyBoard.classList.add('playerTwo');
         }
     })
 });

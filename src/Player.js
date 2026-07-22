@@ -1,5 +1,5 @@
 class Player {
-    constructor(gameboard) {
+    constructor(gameboard = null) {
         this.playerBoard = gameboard;
     }
 }

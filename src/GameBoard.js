@@ -2,8 +2,9 @@ class GameBoard {
     constructor() {
         this.length = 10;
         this.gameboard = Array.from({ length: this.length }, () => Array(this.length).fill());
+        
+        this.hitAttacks = 0;
         this.missedAttacks = 0;
-
         this.numberOfShips = 5;
         this.shipsSunk = 0;
     }
@@ -36,6 +37,7 @@ class GameBoard {
         
         if (typeof cell === 'object' && cell !== null) {
             cell.hit();
+            this.hitAttacks++;
             this.gameboard[x][y] = "X";
             console.log("You hit a ship.");
 
