@@ -1,6 +1,11 @@
 import { Ship } from './Ship.js';
 
 const displayData = (player, playerBlock) => {
+    const oldDataBlock = playerBlock.querySelector('.dataBlock');
+    if (oldDataBlock) {
+        oldDataBlock.remove();
+    }
+
     const dataBlock = document.createElement('div');
     const hitsDiv = document.createElement('div');
     const missesDiv = document.createElement('div');
@@ -11,9 +16,9 @@ const displayData = (player, playerBlock) => {
     missesDiv.classList.add('misses');
     numOfSinksDiv.classList.add('numberOfSinks');
 
-    hitsDiv.textContent = `Hits: ${player.playerBoard.hitAttacks}`;
-    missesDiv.textContent = `Misses: ${player.playerBoard.missedAttacks}`;
-    numOfSinksDiv.textContent = `Ships sunk: ${player.playerBoard.shipsSunk}`;
+    hitsDiv.textContent = `Hits: ${player.playerBoard.hitAttacks.length ?? player.playerBoard.hitAttacks}`;
+    missesDiv.textContent = `Misses: ${player.playerBoard.missedAttacks.length ?? player.playerBoard.missedAttacks}`;
+    numOfSinksDiv.textContent = `Ships sunk: ${player.playerBoard.shipsSunk ?? 0}`;
 
     dataBlock.append(hitsDiv, missesDiv, numOfSinksDiv);
     playerBlock.appendChild(dataBlock);

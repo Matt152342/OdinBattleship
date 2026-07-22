@@ -40,6 +40,10 @@ html, body {
     outline: 1px solid black;
 }
 
+.cell.clicked {
+    background-color: red;
+}
+
 .hidden {
     display: none !important;
 }

@@ -12,9 +12,11 @@ let twoPlayerMode = false;
 
 // Set up playerOne and playerTwo 
 const playerOne = new Player();
-playerOne.playerBoard = new GameBoard();
 const playerTwo = new Player();
+playerOne.playerBoard = new GameBoard();
 playerTwo.playerBoard = new GameBoard();
+let playerOneTurn = true;
+let playerTwoTurn = false;
 
 const playerOneBlock = document.querySelector('.playerOneBlock');
 const playerTwoBlock = document.querySelector('.playerTwoBlock');
@@ -26,18 +28,36 @@ startBtns.forEach((button) => {
         gameMenu.classList.remove('hidden');
 
         drawBoard(playerOneBlock, playerOne.playerBoard);
-        displayData(playerOne, playerOneBlock);
+        displayData(playerTwo, playerOneBlock);
         drawBoard(playerTwoBlock, playerTwo.playerBoard);
-        displayData(playerTwo, playerTwoBlock);
+        displayData(playerOne, playerTwoBlock);
 
         if (button.classList.contains('onePlayerBtn')) {
             onePlayerMode = true;
+            console.log(onePlayerMode);
         } else if (button.classList.contains('twoPlayerBtn')) {
             twoPlayerMode = true;
         }
+
+        cellInputListener();
     })
 });
 
-while (onePlayerMode) {
-    
+const cellInputListener = () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach((cell) => {
+        cell.addEventListener('click', () => {
+            if (playerOneTurn && !cell.classList.contains('clicked')) {
+                cell.classList.add('clicked');
+
+                const x = cell.dataset.x;
+                const y = cell.dataset.y;
+
+                playerTwo.playerBoard.receiveAttack([x, y]);
+                displayData(playerTwo, playerOneBlock);
+
+                playerOneTurn = false;
+            }
+        });
+    });
 }
