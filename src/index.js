@@ -37,3 +37,7 @@ startBtns.forEach((button) => {
         }
     })
 });
+
+while (onePlayerMode) {
+    
+}

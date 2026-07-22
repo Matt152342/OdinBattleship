@@ -27,10 +27,6 @@ html, body {
     grid-template-rows: repeat(10, 35px);
     gap: 1px;
     width: fit-content;
-
-    /* border: 1px solid black;
-    border-radius: 16px;
-    overflow: hidden; */
 }
 
 .cell {
@@ -45,5 +41,5 @@ html, body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }

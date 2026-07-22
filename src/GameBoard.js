@@ -5,11 +5,18 @@ class GameBoard {
         
         this.hitAttacks = 0;
         this.missedAttacks = 0;
-        this.numberOfShips = 5;
         this.shipsSunk = 0;
+
+        this.ships = {
+            "Carrier": 5,
+            "Battleship": 4,
+            "Cruiser": 3,
+            "Submarine": 3,
+            "Destroyer": 2,
+        }
     }
 
-    placeShip (startCoordinate, ship) { // startCoord and endCoord is going to be formatted as [x, y]
+    placeShip (startCoordinate, ship, isHorizontal = false) { // startCoord and endCoord is going to be formatted as [x, y]
         if (!ship || !startCoordinate) {
             throw new Error("Please enter required details (start coordinate, end coordinate and ship object.");
         }
