@@ -3,7 +3,7 @@ class Ship {
         this.name = name;
         this.length = length;
         this.numberOfHits = 0;
-        this.isSunk = false;
+        this.sunk = false;
     }
 
     hit () {
@@ -12,12 +12,12 @@ class Ship {
         return;
     }
 
-    isSunk() {
-        if (this.numberOfHits === this.length) {
-            this.isSunk = true;
+    isSunk () {
+        if (this.numberOfHits >= this.length) {
+            this.sunk = true;
         }
-        
-        return this.isSunk;
+
+        return this.sunk;
     }
 }
 

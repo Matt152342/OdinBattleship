@@ -50,13 +50,14 @@ class GameBoard {
         if (typeof cell === 'object' && cell !== null) {
             cell.hit();
             this.hitAttacks++;
-            this.gameboard[x][y] = "X";
             console.log("You hit a ship.");
 
-            if (cell.isSunk) {
+            if (cell.isSunk()) {
                 this.shipsSunk++;
                 console.log(`Ship sunk. Total sunk is: ${this.shipsSunk}`);
             }
+
+            this.gameboard[x][y] = "X"; // put it here to not overwrite cell before checking if its sunk
         } else { // Check if miss
             this.missedAttacks++;
             this.gameboard[x][y] = "O";

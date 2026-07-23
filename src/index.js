@@ -26,9 +26,9 @@ startBtns.forEach((button) => {
         startMenu.classList.add('hidden');
         gameMenu.classList.remove('hidden');
 
-        drawBoard(playerOneBlock, playerOne.playerBoard);
+        drawBoard(playerOneBlock, playerOne.playerBoard.gameboard);
         displayData(playerTwo, playerOneBlock);
-        drawBoard(playerTwoBlock, playerTwo.playerBoard);
+        drawBoard(playerTwoBlock, playerTwo.playerBoard.gameboard);
         displayData(playerOne, playerTwoBlock);
 
         if (button.classList.contains('onePlayerBtn')) {
@@ -55,7 +55,7 @@ const cellInputListener = () => {
                 playerTwo.playerBoard.receiveAttack([x, y]);
                 displayData(playerTwo, playerOneBlock);
 
-                playerOneTurn = false;
+                // playerOneTurn = false;
             }
         });
     });

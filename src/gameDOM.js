@@ -16,9 +16,9 @@ const displayData = (player, playerBlock) => {
     missesDiv.classList.add('misses');
     numOfSinksDiv.classList.add('numberOfSinks');
 
-    hitsDiv.textContent = `Hits: ${player.playerBoard.hitAttacks.length ?? player.playerBoard.hitAttacks}`;
-    missesDiv.textContent = `Misses: ${player.playerBoard.missedAttacks.length ?? player.playerBoard.missedAttacks}`;
-    numOfSinksDiv.textContent = `Ships sunk: ${player.playerBoard.shipsSunk ?? 0}`;
+    hitsDiv.textContent = `Hits: ${player.playerBoard.hitAttacks}`;
+    missesDiv.textContent = `Misses: ${player.playerBoard.missedAttacks}`;
+    numOfSinksDiv.textContent = `Ships sunk: ${player.playerBoard.shipsSunk}`;
 
     dataBlock.append(hitsDiv, missesDiv, numOfSinksDiv);
     playerBlock.appendChild(dataBlock);
@@ -33,8 +33,8 @@ const drawBoard = (playerBlock, playerBoard) => {
             const cell = document.createElement('div');
             cell.classList.add('cell');
 
-            cell.dataset.x = row;
-            cell.dataset.y = col;
+            cell.dataset.x = col;
+            cell.dataset.y = row;
 
             gameboard.appendChild(cell);
         }
