@@ -16,7 +16,6 @@ const playerTwo = new Player();
 playerOne.playerBoard = new GameBoard();
 playerTwo.playerBoard = new GameBoard();
 let playerOneTurn = true;
-let playerTwoTurn = false;
 
 const playerOneBlock = document.querySelector('.playerOneBlock');
 const playerTwoBlock = document.querySelector('.playerTwoBlock');
@@ -34,7 +33,7 @@ startBtns.forEach((button) => {
 
         if (button.classList.contains('onePlayerBtn')) {
             onePlayerMode = true;
-            console.log(onePlayerMode);
+            playerTwo.botPlaceShips();
         } else if (button.classList.contains('twoPlayerBtn')) {
             twoPlayerMode = true;
         }
@@ -47,7 +46,7 @@ const cellInputListener = () => {
     const cells = document.querySelectorAll('.cell');
     cells.forEach((cell) => {
         cell.addEventListener('click', () => {
-            if (playerOneTurn && !cell.classList.contains('clicked')) {
+            if (playerOneTurn && cell.closest('.playerTwoBlock') && !cell.classList.contains('clicked')) {
                 cell.classList.add('clicked');
 
                 const x = cell.dataset.x;

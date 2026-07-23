@@ -1,3 +1,5 @@
+import { Ship } from './Ship.js';
+
 class GameBoard {
     constructor() {
         this.length = 10;
@@ -7,16 +9,16 @@ class GameBoard {
         this.missedAttacks = 0;
         this.shipsSunk = 0;
 
-        this.ships = {
-            "Carrier": 5,
-            "Battleship": 4,
-            "Cruiser": 3,
-            "Submarine": 3,
-            "Destroyer": 2,
-        }
+        this.ships = [
+            new Ship("Carrier", 5),
+            new Ship("Battleship", 4),
+            new Ship("Cruiser", 3),
+            new Ship("Submarine", 3),
+            new Ship("Destroyer", 3),
+        ]
     }
 
-    placeShip (startCoordinate, ship, isHorizontal = false) { // startCoord and endCoord is going to be formatted as [x, y]
+    placeShip (startCoordinate, ship) {
         if (!ship || !startCoordinate) {
             throw new Error("Please enter required details (start coordinate, end coordinate and ship object.");
         }
@@ -26,10 +28,13 @@ class GameBoard {
             throw new Error("Ship placement goes out of bounds.");
         }
 
-        for (let i = y; i < ship.length + y; i++) {
+        for (let i = y; i < ship.length + y; i++) { // checks if the area is okay to be placed before placing.
             if (this.gameboard[x][i] !== undefined) {
                 throw new Error("Cannot place ship on top of another ship!");
             }
+        }
+
+        for (let i = y; i < ship.length + y; i++) {
             this.gameboard[x][i] = ship;
         }
     }
@@ -48,7 +53,7 @@ class GameBoard {
             this.gameboard[x][y] = "X";
             console.log("You hit a ship.");
 
-            if (cell.isSunk()) {
+            if (cell.isSunk) {
                 this.shipsSunk++;
                 console.log(`Ship sunk. Total sunk is: ${this.shipsSunk}`);
             }
