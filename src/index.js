@@ -34,28 +34,37 @@ startBtns.forEach((button) => {
         if (button.classList.contains('onePlayerBtn')) {
             onePlayerMode = true;
             playerTwo.botPlaceShips();
+            singlePlayer();
         } else if (button.classList.contains('twoPlayerBtn')) {
             twoPlayerMode = true;
         }
-
-        cellInputListener();
-    })
+    });
 });
 
-const cellInputListener = () => {
+const singlePlayer = () => {
     const cells = document.querySelectorAll('.cell');
     cells.forEach((cell) => {
         cell.addEventListener('click', () => {
-            if (playerOneTurn && cell.closest('.playerTwoBlock') && !cell.classList.contains('clicked')) {
-                cell.classList.add('clicked');
+            if (playerOneTurn) { // Prevents spamming
+                if (cell.closest('.playerTwoBlock') && !cell.classList.contains('clicked')) {
+                    cell.classList.add('clicked');
 
-                const x = cell.dataset.x;
-                const y = cell.dataset.y;
+                    const x = cell.dataset.x;
+                    const y = cell.dataset.y;
 
-                playerTwo.playerBoard.receiveAttack([x, y]);
-                displayData(playerTwo, playerOneBlock);
+                    playerTwo.playerBoard.receiveAttack([x, y]);
+                    displayData(playerTwo, playerOneBlock);
 
-                // playerOneTurn = false;
+                    playerOneTurn = false;
+
+                    // Bots turn
+                    setTimeout(() => {
+                        playerTwo.botAttack(playerOne.playerBoard, playerOneBlock);
+                        displayData(playerOne, playerTwoBlock);
+                    }, 1000);
+                    
+                    playerOneTurn = true;
+                } 
             }
         });
     });
