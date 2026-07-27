@@ -18,24 +18,36 @@ class GameBoard {
         ]
     }
 
-    placeShip (startCoordinate, ship) {
+    placeShip (startCoordinate, ship, isHorizontal) {
         if (!ship || !startCoordinate) {
             throw new Error("Please enter required details (start coordinate, end coordinate and ship object.");
         }
 
         const [x, y] = startCoordinate;
-        if (y + ship.length > this.length) { // Check if ship is on y-axis
-            throw new Error("Ship placement goes out of bounds.");
-        }
 
-        for (let i = y; i < ship.length + y; i++) { // checks if the area is okay to be placed before placing.
-            if (this.gameboard[x][i] !== undefined) {
+        if (isHorizontal) {
+        if (x + ship.length > this.length) {
+            throw new Error(`Horizontal placement out of bounds! (x: ${x} + len: ${ship.length} > 10)`);
+        }
+    } else {
+        if (y + ship.length > this.length) {
+            throw new Error(`Vertical placement out of bounds! (y: ${y} + len: ${ship.length} > 10)`);
+        }
+    }
+
+        for (let i = 0; i < ship.length; i++) { // checks if the area is okay to be placed before placing.
+            const targetX = isHorizontal ? x + i : x;
+            const targetY = isHorizontal ? y : y + i;
+
+            if (this.gameboard[targetX][targetY] !== undefined) {
                 throw new Error("Cannot place ship on top of another ship!");
             }
         }
 
-        for (let i = y; i < ship.length + y; i++) {
-            this.gameboard[x][i] = ship;
+        for (let i = 0; i < ship.length; i++) {
+            const targetX = isHorizontal ? x + i : x;
+            const targetY = isHorizontal ? y : y + i;
+            this.gameboard[targetX][targetY] = ship;
         }
     }
 

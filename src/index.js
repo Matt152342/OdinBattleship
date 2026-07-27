@@ -2,6 +2,7 @@ import "./styles.css";
 import { Player } from './Player.js';
 import { GameBoard } from './GameBoard.js';
 import { displayData, drawBoard } from "./gameDOM.js";
+import { playerShipPlacement } from './placeShipDOM.js';
 
 const startMenu = document.getElementById('startMenu');
 const gameMenu = document.getElementById('gameMenu');
@@ -20,21 +21,25 @@ let playerOneTurn = true;
 const playerOneBlock = document.querySelector('.playerOneBlock');
 const playerTwoBlock = document.querySelector('.playerTwoBlock');
 
-const startBtns = document.querySelectorAll('.startBtn');
-startBtns.forEach((button) => {
+const modeBtns = document.querySelectorAll('.startBtn');
+modeBtns.forEach((button) => {
     button.addEventListener('click', () => {
         startMenu.classList.add('hidden');
         gameMenu.classList.remove('hidden');
 
-        drawBoard(playerOneBlock, playerOne.playerBoard.gameboard);
+        drawBoard(playerOneBlock, playerOne.playerBoard);
         displayData(playerTwo, playerOneBlock);
-        drawBoard(playerTwoBlock, playerTwo.playerBoard.gameboard);
+        drawBoard(playerTwoBlock, playerTwo.playerBoard);
         displayData(playerOne, playerTwoBlock);
 
         if (button.classList.contains('onePlayerBtn')) {
             onePlayerMode = true;
             playerTwo.botPlaceShips();
-            singlePlayer();
+
+            playerShipPlacement(playerOne, playerOneBlock, () => {
+                document.getElementById('setupControls').classList.add('hidden');
+                singlePlayer();
+            });
         } else if (button.classList.contains('twoPlayerBtn')) {
             twoPlayerMode = true;
         }
@@ -43,14 +48,15 @@ startBtns.forEach((button) => {
 
 const singlePlayer = () => {
     const cells = document.querySelectorAll('.cell');
+
     cells.forEach((cell) => {
         cell.addEventListener('click', () => {
-            if (playerOneTurn) { // Prevents spamming
+            if (playerOneTurn && !cell.classList.contains('clicked')) { // Prevents spamming
                 if (cell.closest('.playerTwoBlock') && !cell.classList.contains('clicked')) {
                     cell.classList.add('clicked');
 
-                    const x = cell.dataset.x;
-                    const y = cell.dataset.y;
+                    const x = Number(cell.dataset.x);
+                    const y = Number(cell.dataset.y);
 
                     playerTwo.playerBoard.receiveAttack([x, y]);
                     displayData(playerTwo, playerOneBlock);
@@ -61,9 +67,8 @@ const singlePlayer = () => {
                     setTimeout(() => {
                         playerTwo.botAttack(playerOne.playerBoard, playerOneBlock);
                         displayData(playerOne, playerTwoBlock);
-                    }, 1000);
-                    
-                    playerOneTurn = true;
+                        playerOneTurn = true;
+                    }, 300);
                 } 
             }
         });

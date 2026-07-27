@@ -10,12 +10,17 @@ html, body {
     width: 100%;
     height: auto;
 
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    gap: 10px;
+    gap: 10px; */
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
 }
 
 .gameboard {

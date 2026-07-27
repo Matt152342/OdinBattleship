@@ -25,6 +25,11 @@ const displayData = (player, playerBlock) => {
 };
 
 const drawBoard = (playerBlock, playerBoard) => {
+    const oldBoard = playerBlock.querySelector('.gameboard');
+    if (oldBoard) {
+        oldBoard.remove();
+    }
+
     const gameboard = document.createElement('div');
     gameboard.classList.add('gameboard');
 
