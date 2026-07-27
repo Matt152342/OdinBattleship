@@ -26,14 +26,14 @@ class GameBoard {
         const [x, y] = startCoordinate;
 
         if (isHorizontal) {
-        if (x + ship.length > this.length) {
-            throw new Error(`Horizontal placement out of bounds! (x: ${x} + len: ${ship.length} > 10)`);
+            if (x + ship.length > this.length) {
+                throw new Error(`Horizontal placement out of bounds! (x: ${x} + len: ${ship.length} > 10)`);
+            }
+        } else {
+            if (y + ship.length > this.length) {
+                throw new Error(`Vertical placement out of bounds! (y: ${y} + len: ${ship.length} > 10)`);
+            }
         }
-    } else {
-        if (y + ship.length > this.length) {
-            throw new Error(`Vertical placement out of bounds! (y: ${y} + len: ${ship.length} > 10)`);
-        }
-    }
 
         for (let i = 0; i < ship.length; i++) { // checks if the area is okay to be placed before placing.
             const targetX = isHorizontal ? x + i : x;

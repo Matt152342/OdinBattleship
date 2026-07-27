@@ -10,6 +10,18 @@ const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
 
     const playerShips = player.playerBoard.ships;
 
+    const updatePlacementUI = () => {
+        if (shipIndex < playerShips.length) {
+            const ship = playerShips[shipIndex];
+            shipInfo.textContent = `Place your ${ship.name} (Length: ${ship.length})`;
+
+            startBtn.disabled = true;
+        } else {
+            shipInfo.textContent = 'All ships have been placed.';
+            startBtn.disabled = false;
+        }
+    }
+
     rotateBtn.addEventListener('click', () => {
         isHorizontal = !isHorizontal;
         if (isHorizontal) {
@@ -17,18 +29,7 @@ const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
         } else {
             rotateBtn.textContent = 'Axis: Vertical';
         }
-    })
-
-    const updatePlacementUI = () => {
-        if (shipIndex < playerShips.length) {
-            const ship = playerShips[shipIndex];
-            shipInfo.textContent = `Place your ${ship.name} (Length: ${ship.length})`;
-            startBtn.disabled = true;
-        } else {
-            shipInfo.textContent = 'All ships have been placed.';
-            startBtn.disabled = false;
-        }
-    }
+    });
 
     playerBlock.addEventListener('click', (e) => {
         if (shipIndex >= playerShips.length) {
@@ -46,6 +47,17 @@ const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
 
         try {
             player.playerBoard.placeShip([x, y], currentShip, isHorizontal);
+
+            for (let i = 0; i < currentShip.length; i++) {
+                const targetX = isHorizontal ? x + i : x;
+                const targetY = isHorizontal ? y : y + i;
+
+                const targetCell = playerBlock.querySelector(`[data-x="${targetX}"][data-y="${targetY}"]`);
+                if (targetCell) {
+                    targetCell.classList.add('ship');
+                }
+            }
+
             shipIndex++;
             updatePlacementUI();
         } catch (error) {

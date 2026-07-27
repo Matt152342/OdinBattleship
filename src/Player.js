@@ -36,6 +36,9 @@ class Player {
 
                 const targetCell = playerboardDiv.querySelector(`[data-x="${x}"][data-y="${y}"]`);
                 if (targetCell) {
+                    if (targetCell.classList.contains('ship')) {
+                        targetCell.classList.remove('ship');
+                    }
                     targetCell.classList.add('clicked');
                 }
                 hasAttacked = true;
