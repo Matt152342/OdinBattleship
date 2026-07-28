@@ -1,9 +1,9 @@
 import { drawBoard } from './gameDOM.js';
 
-let shipIndex = 0;
-let isHorizontal = true;
-
 const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
+    let shipIndex = 0;
+    let isHorizontal = true;
+
     const shipInfo = document.querySelector('#shipInfo');
     const rotateBtn = document.querySelector('#rotateBtn');
     const startBtn = document.querySelector('#startBtn');
@@ -13,7 +13,11 @@ const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
     const updatePlacementUI = () => {
         if (shipIndex < playerShips.length) {
             const ship = playerShips[shipIndex];
-            shipInfo.textContent = `Place your ${ship.name} (Length: ${ship.length})`;
+            if (playerBlock.classList.contains('playerOneBlock')) {
+                shipInfo.textContent = `Player 1 - Place your ${ship.name} (Length: ${ship.length})`;
+            } else {
+                shipInfo.textContent = `Player 2 - Place your ${ship.name} (Length: ${ship.length})`;
+            }
 
             startBtn.disabled = true;
         } else {
@@ -31,7 +35,7 @@ const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
         }
     });
 
-    playerBlock.addEventListener('click', (e) => {
+    const placementHandler = (e) => {
         if (shipIndex >= playerShips.length) {
             return;
         }
@@ -63,13 +67,17 @@ const playerShipPlacement = (player, playerBlock, onPlacementComplete) => {
         } catch (error) {
             console.warn("Invalid ship placement spot!");
         }
-    });
+    };
 
-    startBtn.addEventListener('click', () => {
+    playerBlock.addEventListener('click', placementHandler);
+
+    startBtn.onclick = () => {
+        playerBlock.removeEventListener('click', placementHandler);
+        
         if (onPlacementComplete) {
             onPlacementComplete();
         }
-    });
+    };
 
     updatePlacementUI();
 }

@@ -29,6 +29,7 @@ modeBtns.forEach((button) => {
 
         drawBoard(playerOneBlock, playerOne.playerBoard);
         displayData(playerTwo, playerOneBlock);
+
         drawBoard(playerTwoBlock, playerTwo.playerBoard);
         displayData(playerOne, playerTwoBlock);
 
@@ -42,6 +43,7 @@ modeBtns.forEach((button) => {
             });
         } else if (button.classList.contains('twoPlayerBtn')) {
             twoPlayerMode = true;
+            twoPlayer();
         }
     });
 });
@@ -68,9 +70,37 @@ const singlePlayer = () => {
                         playerTwo.botAttack(playerOne.playerBoard, playerOneBlock);
                         displayData(playerOne, playerTwoBlock);
                         playerOneTurn = true;
-                    }, 300);
+                    }, 500);
                 } 
             }
         });
     });
+}
+
+const twoPlayer = () => {
+    const placePhase = async () => {
+        drawBoard(playerOneBlock, playerOne.playerBoard, true);
+        displayData(playerOne, playerOneBlock);
+
+        await new Promise((resolve) => {
+            playerShipPlacement(playerOne, playerOneBlock, resolve);
+        })
+
+        drawBoard(playerOneBlock, playerOne.playerBoard, false);
+        displayData(playerOne, playerOneBlock);
+
+        drawBoard(playerTwoBlock, playerTwo.playerBoard, true);
+        displayData(playerTwo, playerTwoBlock);
+
+        await new Promise((resolve) => {
+            playerShipPlacement(playerTwo, playerTwoBlock, resolve);
+        });
+
+        drawBoard(playerTwoBlock, playerTwo.playerBoard, false);
+        displayData(playerTwo, playerTwoBlock);
+
+        document.getElementById('setupControls').classList.add('hidden');
+    }
+
+    placePhase();
 }

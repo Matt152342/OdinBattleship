@@ -14,7 +14,7 @@ class GameBoard {
             new Ship("Battleship", 4),
             new Ship("Cruiser", 3),
             new Ship("Submarine", 3),
-            new Ship("Destroyer", 3),
+            new Ship("Destroyer", 2),
         ]
     }
 

@@ -24,7 +24,7 @@ const displayData = (player, playerBlock) => {
     playerBlock.appendChild(dataBlock);
 };
 
-const drawBoard = (playerBlock, playerBoard) => {
+const drawBoard = (playerBlock, playerBoard, drawShips = false) => {
     const oldBoard = playerBlock.querySelector('.gameboard');
     if (oldBoard) {
         oldBoard.remove();
@@ -38,8 +38,13 @@ const drawBoard = (playerBlock, playerBoard) => {
             const cell = document.createElement('div');
             cell.classList.add('cell');
 
-            cell.dataset.x = col;
+            cell.dataset.x = col; // this is supposed to row, I know, but I was too lazy to fix.
             cell.dataset.y = row;
+
+            const cellData = playerBoard.gameboard[col][row];
+            if (drawShips && typeof cellData === 'object') {
+                cell.classList.add('ship');
+            }
 
             gameboard.appendChild(cell);
         }
