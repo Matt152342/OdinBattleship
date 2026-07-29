@@ -99,11 +99,14 @@ const twoPlayer = async () => {
         drawBoard(playerTwoBlock, playerTwo.playerBoard, false);
         displayData(playerOne, playerTwoBlock);
 
+        drawBoard(playerOneBlock, playerOne.playerBoard, true);
+        displayData(playerOne, playerOneBlock);
+
         document.getElementById('setupControls').classList.add('hidden');
     }
 
-    const playerAttack = (attacker, attackerBlock, targetPlayer, targetBlock) => {
-        return new Promise((resolve), () => {
+    const playerAttack = (attackerBlock, targetPlayer, targetBlock) => {
+        return new Promise((resolve) => {
             const handleAttack = (e) => {
                 const cell = e.target.closest('.cell');
 
@@ -115,7 +118,7 @@ const twoPlayer = async () => {
                 const y = cell.dataset.y;
 
                 try {
-                    targetBlock.receiveAttack([x, y]);
+                    targetPlayer.playerBoard.receiveAttack([x, y]);
 
                     targetBlock.removeEventListener('click', handleAttack);
                     displayData(targetPlayer, attackerBlock);
@@ -129,5 +132,36 @@ const twoPlayer = async () => {
         });
     }
 
+    const gameLoop = async () => {
+        let gameOver = false;
+
+        while (!gameOver) {
+            drawBoard(playerOneBlock, playerOne.playerBoard, true);
+            displayData(playerTwo, playerOneBlock);
+
+            drawBoard(playerTwoBlock, playerTwo.playerBoard, false);
+            displayData(playerOne, playerTwoBlock);
+
+            await playerAttack(playerOneBlock, playerTwo, playerTwoBlock);
+            if (playerTwo.playerBoard.checkEndGame()) {
+                console.log('Player 1 wins.');
+                break;
+            }
+
+            drawBoard(playerOneBlock, playerOne.playerBoard, false);
+            displayData(playerTwo, playerOneBlock);
+
+            drawBoard(playerTwoBlock, playerTwo.playerBoard, true);
+            displayData(playerOne, playerTwoBlock);
+
+            await playerAttack(playerTwoBlock, playerOne, playerOneBlock);
+            if (playerOne.playerBoard.checkEndGame()) {
+                console.log('Player 2 wins.');
+                break;
+            }
+        }
+    }
+
     await placePhase();
+    gameLoop();
 }

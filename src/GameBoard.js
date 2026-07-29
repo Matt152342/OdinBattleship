@@ -18,6 +18,14 @@ class GameBoard {
         ]
     }
 
+    checkEndGame () {
+        if (this.shipsSunk === this.ships.length) {
+            return true;
+        }
+
+        return false;
+    }
+
     placeShip (startCoordinate, ship, isHorizontal) {
         if (!ship || !startCoordinate) {
             throw new Error("Please enter required details (start coordinate, end coordinate and ship object.");
