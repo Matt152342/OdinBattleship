@@ -77,7 +77,7 @@ const singlePlayer = () => {
     });
 }
 
-const twoPlayer = () => {
+const twoPlayer = async () => {
     const placePhase = async () => {
         drawBoard(playerOneBlock, playerOne.playerBoard, true);
         displayData(playerOne, playerOneBlock);
@@ -87,20 +87,47 @@ const twoPlayer = () => {
         })
 
         drawBoard(playerOneBlock, playerOne.playerBoard, false);
-        displayData(playerOne, playerOneBlock);
+        displayData(playerTwo, playerOneBlock);
 
         drawBoard(playerTwoBlock, playerTwo.playerBoard, true);
-        displayData(playerTwo, playerTwoBlock);
+        displayData(playerOne, playerTwoBlock);
 
         await new Promise((resolve) => {
             playerShipPlacement(playerTwo, playerTwoBlock, resolve);
         });
 
         drawBoard(playerTwoBlock, playerTwo.playerBoard, false);
-        displayData(playerTwo, playerTwoBlock);
+        displayData(playerOne, playerTwoBlock);
 
         document.getElementById('setupControls').classList.add('hidden');
     }
 
-    placePhase();
+    const playerAttack = (attacker, attackerBlock, targetPlayer, targetBlock) => {
+        return new Promise((resolve), () => {
+            const handleAttack = (e) => {
+                const cell = e.target.closest('.cell');
+
+                if (cell.classList.contains('hit') || cell.classList.contains('miss')) {
+                    return;
+                }
+
+                const x = cell.dataset.x;
+                const y = cell.dataset.y;
+
+                try {
+                    targetBlock.receiveAttack([x, y]);
+
+                    targetBlock.removeEventListener('click', handleAttack);
+                    displayData(targetPlayer, attackerBlock);
+
+                    resolve(); // Tell the function that it has ended when player clicks valid cell.
+                } catch (error) {
+                }
+            }
+
+            targetBlock.addEventListener('click', handleAttack);
+        });
+    }
+
+    await placePhase();
 }
