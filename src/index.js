@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Player } from './Player.js';
 import { GameBoard } from './GameBoard.js';
-import { displayData, drawBoard } from "./gameDOM.js";
+import { displayData, drawBoard, showEndScreen } from "./gameDOM.js";
 import { playerShipPlacement } from './placeShipDOM.js';
 
 const startMenu = document.getElementById('startMenu');
@@ -113,6 +113,7 @@ const twoPlayer = async () => {
         return new Promise((resolve) => {
             const handleAttack = (e) => {
                 const cell = e.target.closest('.cell');
+                if (!cell) return;
 
                 if (cell.classList.contains('hit') || cell.classList.contains('miss')) {
                     return;
@@ -148,7 +149,7 @@ const twoPlayer = async () => {
 
             await playerAttack(playerOneBlock, playerTwo, playerTwoBlock);
             if (playerTwo.playerBoard.checkEndGame()) {
-                console.log('Player 1 wins.');
+                showEndScreen('Player 1 Wins.');
                 break;
             }
 
@@ -160,7 +161,7 @@ const twoPlayer = async () => {
 
             await playerAttack(playerTwoBlock, playerOne, playerOneBlock);
             if (playerOne.playerBoard.checkEndGame()) {
-                console.log('Player 2 wins.');
+                showEndScreen('Player 2 Wins.');
                 break;
             }
         }

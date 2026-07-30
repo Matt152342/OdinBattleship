@@ -60,4 +60,15 @@ const drawBoard = (playerBlock, playerBoard, drawShips = false) => {
     return gameboard;
 };
 
-export { displayData, drawBoard };
+const showEndScreen = (message) => {
+    const endScreen = document.getElementById('endMenu');
+    const messageDiv = document.querySelector('.endMessage');
+    const gameScreen = document.getElementById('gameMenu');
+
+    gameScreen.classList.toggle('hidden');
+
+    messageDiv.textContent = message;
+    endScreen.classList.toggle('hidden');
+}
+
+export { displayData, drawBoard, showEndScreen };
