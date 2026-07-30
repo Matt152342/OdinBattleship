@@ -1,4 +1,4 @@
-const {Ship} = require('./ship.js');
+const {Ship} = require('./Ship.js');
 
 describe("Ship class", () => {
     test('After one hit, number of hits should be 1', () => {
