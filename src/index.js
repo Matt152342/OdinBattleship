@@ -93,6 +93,10 @@ const singlePlayer = () => {
                         cell.classList.add('hit');
                     }
 
+                    if (playerTwo.playerBoard.checkEndGame()) {
+                        showEndScreen('Player 1 wins.');
+                    }
+
                     displayData(playerTwo, playerOneBlock);
 
                     playerOneTurn = false;
@@ -101,6 +105,11 @@ const singlePlayer = () => {
                     setTimeout(() => {
                         playerTwo.botAttack(playerOne.playerBoard, playerOneBlock);
                         displayData(playerOne, playerTwoBlock);
+
+                        if (playerOne.playerBoard.checkEndGame()) {
+                            showEndScreen('Player 2 wins.');
+                        }
+
                         playerOneTurn = true;
                     }, 500);
                 } 
@@ -158,10 +167,38 @@ const twoPlayer = async () => {
 
                     resolve(); // Tell the function that it has ended when player clicks valid cell.
                 } catch (error) {
+
                 }
             }
 
             targetBlock.addEventListener('click', handleAttack);
+        });
+    }
+
+    const turnBuffer = () => {
+        return new Promise ((resolve) => {
+            const bufferScreen = document.getElementById('bufferMenu');
+
+            gameMenu.classList.add('hidden');
+            bufferScreen.classList.remove('hidden');
+            
+            let count = 5;
+            bufferScreen.textContent = `${count}`;
+
+            const timer = setInterval(() => {
+                count--;
+
+                if (count > 0) {
+                    bufferScreen.textContent = `${count}`;
+                } else {
+                    clearInterval(timer);   
+
+                    bufferScreen.classList.add('hidden');
+                    gameMenu.classList.remove('hidden');
+
+                    resolve();
+                }
+            }, 1000);
         });
     }
 
@@ -180,6 +217,7 @@ const twoPlayer = async () => {
                 showEndScreen('Player 1 Wins.');
                 break;
             }
+            await turnBuffer();
 
             drawBoard(playerOneBlock, playerOne.playerBoard, false);
             displayData(playerTwo, playerOneBlock);
@@ -192,6 +230,7 @@ const twoPlayer = async () => {
                 showEndScreen('Player 2 Wins.');
                 break;
             }
+            await turnBuffer();
         }
     }
 
