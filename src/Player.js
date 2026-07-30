@@ -5,6 +5,16 @@ const generateCoord = () => {
     return [x, y];
 }
 
+const randomAxis = () => {
+    const num = Math.floor(Math.random() * 2);
+
+    if (num === 1) {
+        return true;
+    }
+
+    return false;
+}
+
 class Player {
     constructor(gameboard = null) {
         this.playerBoard = gameboard;
@@ -18,7 +28,7 @@ class Player {
             while (!placed) {
                 try {
                     const coordinate = generateCoord();
-                    this.playerBoard.placeShip(coordinate, ship);
+                    this.playerBoard.placeShip(coordinate, ship, randomAxis());
                     placed = true;
                 } catch (error) {
                 }

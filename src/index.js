@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Player } from './Player.js';
 import { GameBoard } from './GameBoard.js';
-import { displayData, drawBoard, showEndScreen } from "./gameDOM.js";
+import { displayData, drawBoard, showEndScreen, showStartScreen } from "./gameDOM.js";
 import { playerShipPlacement } from './placeShipDOM.js';
 
 const startMenu = document.getElementById('startMenu');
@@ -47,6 +47,34 @@ modeBtns.forEach((button) => {
         }
     });
 });
+
+const homeBtn = document.querySelector('.homeBtn');
+homeBtn.addEventListener('click', () => {
+    showStartScreen();
+    resetGame();
+});
+
+const resetGame = () => {
+    onePlayerMode = false;
+    twoPlayerMode = false;
+    playerOneTurn = true;
+
+    playerOne.playerBoard = new GameBoard();
+    playerTwo.playerBoard = new GameBoard();
+
+    playerOneBlock.innerHTML = '<h2>Player One\'s Board</h2>';
+    playerTwoBlock.innerHTML = '<h2>Player Two\'s Board</h2>';
+
+    const setupControls = document.getElementById('setupControls');
+    setupControls.classList.remove('hidden');
+    
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) startBtn.disabled = true;
+
+    document.getElementById('gameMenu').classList.add('hidden');
+    document.getElementById('endMenu').classList.add('hidden');
+    document.getElementById('startMenu').classList.remove('hidden');
+};
 
 const singlePlayer = () => {
     const cells = document.querySelectorAll('.cell');

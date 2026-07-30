@@ -71,4 +71,20 @@ const showEndScreen = (message) => {
     endScreen.classList.toggle('hidden');
 }
 
-export { displayData, drawBoard, showEndScreen };
+const showStartScreen = () => {
+    const endScreen = document.getElementById('endMenu');
+    const gameScreen = document.getElementById('gameMenu');
+    const startScreen = document.getElementById('startMenu');
+
+    if (!endScreen.classList.contains('hidden')) {
+        endScreen.classList.toggle('hidden');
+    }
+
+    if (!gameScreen.classList.contains('hidden')) {
+        gameScreen.classList.toggle('hidden');
+    }
+
+    startScreen.classList.toggle('hidden');
+}
+
+export { displayData, drawBoard, showEndScreen, showStartScreen };
