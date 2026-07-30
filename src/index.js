@@ -182,7 +182,7 @@ const twoPlayer = async () => {
             gameMenu.classList.add('hidden');
             bufferScreen.classList.remove('hidden');
             
-            let count = 5;
+            let count = 3;
             bufferScreen.textContent = `${count}`;
 
             const timer = setInterval(() => {

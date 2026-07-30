@@ -14,23 +14,27 @@
         <div class="main">
             <!-- Start Menu -->
             <div id="startMenu" class="screen">
-                <div class="welcomeMessage">Welcome to Battleship</div>
                 <button class="onePlayerBtn startBtn">One Player</button>
                 <button class="twoPlayerBtn startBtn">Two Player</button>
             </div>
 
             <!-- Game Menu -->
             <div id="gameMenu" class="screen hidden">
-                <div class="playerOneBlock">
-                    <h2>Player One's Board</h2>
+                <div class="boardContainer">
+                    <div class="playerOneBlock">
+                        <h2>Player One's Board</h2>
+                    </div>
+                    <div class="playerTwoBlock">
+                        <h2>Player Two's Board</h2>
+                    </div>
                 </div>
-                <div class="playerTwoBlock">
-                    <h2>Player Two's Board</h2>
-                </div>
+
                 <div id="setupControls">
                     <h2 id="shipInfo">Place your Ship</h2>
-                    <button id="rotateBtn">Axis: Horizontal</button>
-                    <button id="startBtn" disabled>Ready</button>
+                    <div class="setupBtns">
+                        <button id="rotateBtn">Axis: Horizontal</button>
+                        <button id="startBtn" disabled>Ready</button>
+                    </div>
                 </div>
             </div>
 
@@ -44,7 +48,7 @@
 
         <div class="footer">
             <button class="homeBtn">Home</button>
-            <div class="Author">Made by Matthew van Heerden 2026</div>
+            <div class="Author">Made by Matthew van Heerden - 2026</div>
         </div>
     </body>
 </html>
