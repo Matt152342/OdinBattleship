@@ -54,13 +54,17 @@ const singlePlayer = () => {
     cells.forEach((cell) => {
         cell.addEventListener('click', () => {
             if (playerOneTurn && !cell.classList.contains('clicked')) { // Prevents spamming
-                if (cell.closest('.playerTwoBlock') && !cell.classList.contains('clicked')) {
-                    cell.classList.add('clicked');
+                if (cell.closest('.playerTwoBlock') && !cell.classList.contains('miss')) {
+                    cell.classList.add('miss');
 
                     const x = Number(cell.dataset.x);
                     const y = Number(cell.dataset.y);
 
                     playerTwo.playerBoard.receiveAttack([x, y]);
+                    if (playerTwo.playerBoard.gameboard[x][y] === 'hit') {
+                        cell.classList.add('hit');
+                    }
+
                     displayData(playerTwo, playerOneBlock);
 
                     playerOneTurn = false;
@@ -114,8 +118,8 @@ const twoPlayer = async () => {
                     return;
                 }
 
-                const x = cell.dataset.x;
-                const y = cell.dataset.y;
+                const x = Number(cell.dataset.x);
+                const y = Number(cell.dataset.y);
 
                 try {
                     targetPlayer.playerBoard.receiveAttack([x, y]);

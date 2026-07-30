@@ -46,6 +46,12 @@ const drawBoard = (playerBlock, playerBoard, drawShips = false) => {
                 cell.classList.add('ship');
             }
 
+            if (cellData === 'hit') {
+                cell.classList.add('hit');
+            } else if (cellData === 'miss') {
+                cell.classList.add('miss');
+            }
+
             gameboard.appendChild(cell);
         }
     }

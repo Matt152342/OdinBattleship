@@ -38,8 +38,9 @@ class Player {
                 if (targetCell) {
                     if (targetCell.classList.contains('ship')) {
                         targetCell.classList.remove('ship');
+                        targetCell.classList.add('hit');
                     }
-                    targetCell.classList.add('clicked');
+                    targetCell.classList.add('miss');
                 }
                 hasAttacked = true;
             } catch (error) {

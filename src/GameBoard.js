@@ -63,7 +63,7 @@ class GameBoard {
         const [x, y] = coordinate;
         const cell = this.gameboard[x][y]; // get ship object
 
-        if (cell === "X" || cell === "O") {
+        if (cell === 'hit' || cell === 'miss') {
             throw new Error("Already attacked this coordinate.");
         }
         
@@ -77,10 +77,10 @@ class GameBoard {
                 console.log(`Ship sunk. Total sunk is: ${this.shipsSunk}`);
             }
 
-            this.gameboard[x][y] = "X"; // put it here to not overwrite cell before checking if its sunk
+            this.gameboard[x][y] = 'hit'; // put it here to not overwrite cell before checking if its sunk
         } else { // Check if miss
             this.missedAttacks++;
-            this.gameboard[x][y] = "O";
+            this.gameboard[x][y] = 'miss';
             console.log("Miss!");
         }
     }

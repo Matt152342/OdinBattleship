@@ -45,7 +45,11 @@ html, body {
     outline: 1px solid black;
 }
 
-.cell.clicked {
+.cell.miss {
+    background-color: blue;
+}
+
+.cell.hit {
     background-color: red;
 }
 
