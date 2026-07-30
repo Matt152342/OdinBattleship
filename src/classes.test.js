@@ -14,3 +14,7 @@
 //         expect(testShip.isSunk).toBe(true);
 //     });
 // });
+
+test('yes', () => {
+    expect(2 + 2).tobe(4);
+});
